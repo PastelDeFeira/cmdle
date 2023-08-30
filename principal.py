@@ -17,7 +17,7 @@ word_chars = list(str(random_word))
 print(word_chars)
 
 def guess():
-    while 2:
+    while i < 5:
         user_guess = input("Guess a 4 letter word: ")
         user_chars = list(user_guess.lower())
 
@@ -30,6 +30,8 @@ def guess():
         if user_guess not in words_list:
             print("Enter a valid word!")
             break
+        
+        
 
     #print(user_chars)
 
