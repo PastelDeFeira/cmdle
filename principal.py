@@ -21,20 +21,14 @@ def game_loop():
     user_guess = input("Guess a 4 letter word: ")
     user_chars = list(user_guess.lower())
 
-    # limit user's guess to only letters (a-z)
-    if any(map(str.isdigit, user_guess)):
-        print("Use only letters for your guess!")
-        user_guess = input("Guess a 4 letter word: ")
-
     # limits user's guess to 4 chars only
     if len(user_guess) != 4:
         print("Use only letters for your guess!")
-        user_guess = input("Guess a 4 letter word: ")
 
     # makes sure user's guess is a valid word
     if user_guess not in words_list:
         print("Enter a valid word!")
-        user_guess = input("Guess a 4 letter word: ")
+        print("a")
 
     print(user_chars)
 
