@@ -12,11 +12,11 @@ words_list = [entry['word'].lower() for entry in words_data]
 
 # choose a random word from the list
 random_word = random.choice(words_list)
-#print(random_word)
+print(random_word)
 
 # split random word into individual characters
 word_chars = list(str(random_word))
-#print(word_chars)
+print(word_chars)
 
 def guess():
     guesses = 1
@@ -30,11 +30,13 @@ def guess():
         # limits user's guess to 4 chars only
         if len(user_guess) != 4:
             print("Use only letters for your guess!")
+            guesses = guesses
             break
 
         # makes sure user's guess is a valid word
         if user_guess not in words_list:
             print("Enter a valid word!")
+            guesses = guesses
             break
 
          # if user guesses correctly prompt to play again
@@ -46,9 +48,14 @@ def guess():
 
 
         # check's if there are any characters which the user guessed that are also in the correct word
-        for i in user_chars:
-            if i in word_chars:
-                print("The letter %s is correct!" % i)
+        # also checks if the user inputted any characters already in the correct position
+        for i, (user_char, word_char) in enumerate(zip(user_chars, word_chars)):
+            if user_char == word_char:
+                print(f'The letter {user_char} is at the correct position!')
+
+            if user_char in word_chars:
+                print(f'The letter {user_char} is correct, but not in the correct position!')
+
 
         if correct_chars > 0:
             print("%s/4 characters correct" % correct_chars)
