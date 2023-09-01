@@ -30,6 +30,10 @@ elif playing == "n":
 def guess():
     guesses = 1
 
+    # selects a random word at the start of every game
+    random_word = random.choice(words_list)
+    word_chars = list(str(random_word))
+
     # limits to 6 guesses
     while guesses < 6:
         
@@ -42,12 +46,12 @@ def guess():
         # limits user's guess to 4 chars only
         if len(user_guess) != 4:
             print("Your guess should be only 4 letters long...")
-            break
+            continue
 
         # makes sure user's guess is a valid word
         if user_guess not in words_list:
             print("Enter a valid word!")
-            break
+            continue
 
         # if user guesses correctly prompt to play again
         if user_guess == random_word:
@@ -57,7 +61,7 @@ def guess():
             playing == False
 
 
-        # check's if there are any characters which the user guessed that are also in the correct word
+        # checks if there are any characters which the user guessed that are also in the correct word
         # also checks if the user inputted any characters already in the correct position
         for i, (user_char, word_char) in enumerate(zip(user_chars, word_chars)):
             if user_char == word_char:
@@ -77,12 +81,13 @@ def guess():
             print(f'You were not able to guess the word, the word was "{random_word}"...')
             play_again()
             playing == False
-        
+    
 # self explanatory
 def play_again():
     play_again = input("Play again? y/n ")
     if play_again == "y":
         playing == True
+        os.system('cls')
     
     else:
         quit()
