@@ -1,7 +1,6 @@
 import json
 import random
-
-playing = True
+import os
 
 # load all 4 letter words
 with open('4_letter_words.json', 'r') as file:
@@ -12,14 +11,26 @@ words_list = [entry['word'].lower() for entry in words_data]
 
 # choose a random word from the list
 random_word = random.choice(words_list)
-print(random_word)
 
 # split random word into individual characters
 word_chars = list(str(random_word))
-print(word_chars)
+
+# clears terminal
+os.system('cls')
+
+print("Welcome to Wordle But Bad!")
+playing = input("Play now? y/n ")
+
+if playing == "y":
+    playing = True
+
+elif playing == "n":
+    quit()
 
 def guess():
     guesses = 1
+
+    # limits to 6 guesses
     while guesses < 6:
         user_guess = input('Guess a 4 letter word (Guess %s/5): ' % guesses)
         
@@ -29,19 +40,17 @@ def guess():
 
         # limits user's guess to 4 chars only
         if len(user_guess) != 4:
-            print("Use only letters for your guess!")
-            guesses = guesses
+            print("Your guess should be only 4 letters long...")
             break
 
         # makes sure user's guess is a valid word
         if user_guess not in words_list:
             print("Enter a valid word!")
-            guesses = guesses
             break
 
-         # if user guesses correctly prompt to play again
+        # if user guesses correctly prompt to play again
         if user_guess == random_word:
-            print("Congratulations, you guessed %s correctly!" % random_word)
+            print(f'Congratulations, you guessed "{random_word}" correctly!')
             print(f'You guessed in {guesses} guesses!')
             play_again()
             playing == False
@@ -53,10 +62,10 @@ def guess():
             if user_char == word_char:
                 print(f'The letter {user_char} is at the correct position!')
 
-            if user_char in word_chars:
+            elif user_char in word_chars:
                 print(f'The letter {user_char} is correct, but not in the correct position!')
 
-
+        # prints how many characters are correct
         if correct_chars > 0:
             print("%s/4 characters correct" % correct_chars)
 
@@ -68,8 +77,7 @@ def guess():
             play_again()
             playing == False
         
-    #print(user_chars)
-
+# self explanatory
 def play_again():
     play_again = input("Play again? y/n ")
     if play_again == "y":
@@ -78,5 +86,6 @@ def play_again():
     else:
         quit()
 
-while playing:
+# runs gameloop after player wants to play
+while playing == True:
     guess()
