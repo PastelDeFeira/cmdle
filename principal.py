@@ -32,6 +32,7 @@ def guess():
 
     # limits to 6 guesses
     while guesses < 6:
+        
         user_guess = input('Guess a 4 letter word (Guess %s/5): ' % guesses)
         
         # splits user's guess into individual characters
